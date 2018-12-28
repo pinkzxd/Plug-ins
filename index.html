@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>tab切换</title>
+  <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="请输入网页关键字,并且控制在31个字以内">
+  <meta name="keyword" content="请输入网页内容描述,百度要求80个字符以内,标准是要求76个字符">
+  <meta name="format-detection" content="telephone=no">
+
+  <style type="text/css" rel="stylesheet">
+    html,body,div,p,a,input,ul,img,dl,dt,dd{
+      padding: 0;
+      margin: 0;
+      border: 0;
+      list-style: none;
+    }
+    h1,h2,h3,h4,h5,h6{
+      padding: 0;
+      margin: 0;
+    }
+    body{
+      font-size: 12px;
+    }
+    a,i{
+      text-decoration: none;
+      color: #999;
+    }
+    input{
+      outline: none;
+    }
+    .tab{
+      width: 70%;
+      height: 600px;
+      box-shadow: 1px 1px 1px 1px #999;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -300px;
+      margin-left: -35%;
+    }
+    .title-li:hover{
+      cursor: pointer;
+    }
+    .title-li{
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-bottom: 1px solid #999;
+    }
+    .tab > div {
+      width: 100%;
+      height: 570px;
+      float: left;
+      background-color: #999;
+    }
+  </style>
+</head>
+<div id="App">
+  <div class="tab" ref="tab">
+    <ul class="tab-title" ref="tabTitle">
+      <li class="title-li" v-for="(item,index) in liText" :key="index" @click="control(index)">{{item.text}}</li>
+    </ul>
+    <div class="tab-content1" v-if="num === 0">内容1</div>
+    <div class="tab-content2" v-if="num === 1">内容2</div>
+    <div class="tab-content3" v-if="num === 2">内容3</div>
+    <div class="tab-content4" v-if="num === 3">内容4</div>
+    <div class="tab-content5" v-if="num === 4">内容5</div>
+    <div class="tab-content5" v-if="num === 5">内容6</div>
+    <div class="tab-content5" v-if="num === 6">内容7</div>
+  </div>
+</div>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+<script>
+  var vm = new Vue({
+    el: '#App',
+    data:{
+      liText:[
+            {text:'首页'},
+            {text:'详情1'},
+            {text:'详情2'},
+            {text:'详情3'},
+            {text:'详情4'},
+            {text:'详情5'},
+            {text:'详情6'}
+          ],
+      num:0
+    },
+    mounted:function(){
+      this.tabNumber();
+    },
+    methods:{
+      tabNumber:function () {
+        let numTitle = this.$refs.tabTitle.children.length;
+        let tabWidth = this.$refs.tabTitle.parentElement.clientWidth;
+        let liWidth = tabWidth/numTitle;
+        for (let i = 0;i < numTitle;i++){
+          this.$refs.tabTitle.children[i].style.width = liWidth + 'px';
+        }
+      },
+      control:function (index) {
+        this.num = index;
+      }
+    }
+  })
+</script>
+</body>
+</html>
